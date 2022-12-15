@@ -1,46 +1,36 @@
 #include "monty.h"
 
 /**
- * array_len - calculates the array of a token.
- * Return: Lenght of the token.
+ * set_op_tok_error - Sets last element of op_toks to be an error code.
+ * @error_code: Integer to store as a string in op_toks.
  */
-unsigned int array_len(void)
+void set_op_tok_error(int error_code)
 {
-	unsigned int token_len = 0;
-
-	while (globalvar.token2[token_len])
-		token_len++;
-	return (token_len);
-}
-/**
- * tokerr - makes the last element of instructions as error code.
- * @error_status: type int where the error is saved as srt.
- */
-void tokerr(int error_status)
-{
-	int token_len = 0, i = 0;
+	int toks_len = 0, i = 0;
 	char *exit_str = NULL;
-	char *new_token = NULL;
+	char **new_toks = NULL;
 
-	token_len = array_len();
-	new_token = malloc(sizeof(char *) * (token_len + 2));
-	if (!globalvar.token2)
+	toks_len = token_arr_len();
+	new_toks = malloc(sizeof(char *) * (toks_len + 2));
+	if (!op_toks)
 	{
-		stderr_malloc();
+		malloc_error();
 		return;
 	}
-	while (i < token_len)
+	while (i < toks_len)
 	{
-		new_token[i] = globalvar.token2[i];
+		new_toks[i] = op_toks[i];
 		i++;
 	}
-	exit_str = get_int(error_status);
+	exit_str = get_int(error_code);
 	if (!exit_str)
 	{
-		free(globalvar.token2);
-		stderr_malloc();
+		free(new_toks);
+		malloc_error();
 		return;
 	}
-	free(globalvar.token2);
-	globalvar.token2 = new_token;
+	new_toks[i++] = exit_str;
+	new_toks[i] = NULL;
+	free(op_toks);
+	op_toks = new_toks;
 }
