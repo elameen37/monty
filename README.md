@@ -15,14 +15,6 @@ Monty 0.98 is a scripting language that is first compiled into Monty byte codes 
     - spaces and newlines are ignored
     - '#' sign represent comments and the line will be ignored
 
-## Helper
-- newline_check.c - checks if the first character in a line is a newline
-- tokenizer.c - tokenizes the command and value in the line
-- find_op.c - uses the first token (command) to find what operator(instruction) to use
-- list_len.c - returns the number of element in the stack
-- free_l.c - free everything on the stack
-- check_val.c - checks if everything on the second command are all digits
-
 ## Operator Instruction
 - op_push.c - pushes value to stack
   - usage: push 123
